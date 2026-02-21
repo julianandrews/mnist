@@ -21,26 +21,27 @@ pub struct Args {
 pub enum Command {
     Train {
         /// File containing training samples [default: stdin]
-        file: Option<String>,
+        sample_file: Option<String>,
 
-        /// Hidden layer sizes. Can be specified either as a comma-separated list: --layers
-        /// 64,32, or with repeated flags: --layer 64 --layer 32
+        /// Hidden layer sizes. Can be specified either as a comma-separated list (--layers
+        /// 64,32) or with repeated flags (-layers 64 -layers 32)
         #[arg(
-            long,
+            long = "layers",
+            short = 'l',
             value_delimiter = ',',
             num_args = 1..,
             default_value = "16,16",
             value_name = "SIZE"
         )]
-        layers: Vec<usize>,
+        hidden_layers: Vec<usize>,
 
         /// Activation function to use
         #[arg(long, short, value_enum, default_value_t = CliActivationFunction::Sigmoid)]
         activation: CliActivationFunction,
 
-        /// Initialization method for weights
+        /// Weight init method
         #[arg(long, short, value_enum, default_value_t = CliInitMethod::LeCunn)]
-        initialization: CliInitMethod,
+        init_method: CliInitMethod,
     },
     Test,
 }
