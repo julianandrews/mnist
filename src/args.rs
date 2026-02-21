@@ -35,6 +35,9 @@ pub enum Command {
         )]
         hidden_layers: Vec<usize>,
 
+        #[arg(long, short, default_value_t = 100)]
+        batch_size: usize,
+
         /// Activation function to use
         #[arg(long, short, value_enum, default_value_t = CliActivationFunction::Sigmoid)]
         activation: CliActivationFunction,
