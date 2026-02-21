@@ -7,11 +7,11 @@ pub struct Sample {
 }
 
 impl Sample {
-    pub fn input_len(&self) -> usize {
+    pub fn input_size(&self) -> usize {
         self.inputs.len()
     }
 
-    pub fn output_len(&self) -> usize {
+    pub fn output_size(&self) -> usize {
         self.expected.len()
     }
 }

@@ -20,8 +20,8 @@ pub struct Args {
 #[derive(Debug, Clone, Subcommand)]
 pub enum Command {
     Train {
-        /// File containing training samples [default: stdin]
-        sample_file: Option<String>,
+        /// File containing training samples
+        sample_file: String,
 
         /// Hidden layer sizes. Can be specified either as a comma-separated list (--layers
         /// 64,32) or with repeated flags (-layers 64 -layers 32)

@@ -2,6 +2,12 @@ use std::borrow::Cow;
 
 use crate::data::Sample;
 
+/// A source of samples for training or evaluation.
+///
+/// The `Dataset` trait abstracts over different data sources (e.g., CSV files,
+/// in‑memory arrays, binary formats) and provides random access to individual
+/// samples. This allows data loaders to iterate, shuffle, and batch samples
+/// without knowing the underlying storage details.
 pub trait Dataset {
     fn len(&self) -> usize;
     fn is_empty(&self) -> bool {
