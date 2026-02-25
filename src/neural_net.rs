@@ -4,8 +4,8 @@ use rand::distr::{Distribution, Uniform};
 // TODO: per layer activation functions?
 #[derive(Debug, Clone)]
 pub struct NeuralNet {
-    biases: Vec<Array1<f64>>,
-    weights: Vec<Array2<f64>>,
+    biases: Vec<Array1<f32>>,
+    weights: Vec<Array2<f32>>,
     activation_function: ActivationFunction,
 }
 
@@ -41,16 +41,16 @@ pub enum InitMethod {
 }
 
 impl InitMethod {
-    fn init_weights(&self, n_in: usize, n_out: usize) -> Array2<f64> {
+    fn init_weights(&self, n_in: usize, n_out: usize) -> Array2<f32> {
         // LeCunn, Glorot, and He initialization all just specify the variance to aim for as a
         // function of the number of input and output neurons.
         //
         // The specific distribution doesn't seem to be very important, and a uniform distribution
         // clamped to achieve the desired variance seems to be standard practice.
         let limit = match self {
-            InitMethod::LeCunn => (1.0 / n_in as f64).sqrt(),
-            InitMethod::Glorot => (6.0 / (n_in + n_out) as f64).sqrt(),
-            InitMethod::He => (6.0 / n_in as f64).sqrt(),
+            InitMethod::LeCunn => (1.0 / n_in as f32).sqrt(),
+            InitMethod::Glorot => (6.0 / (n_in + n_out) as f32).sqrt(),
+            InitMethod::He => (6.0 / n_in as f32).sqrt(),
         };
         let mut rng = rand::rng();
         let dist = Uniform::new(-limit, limit).unwrap();

@@ -32,8 +32,8 @@ impl<D: Dataset> DataLoader<D> {
     /// Returns an iterator over batches of samples from the dataset.
     ///
     /// Each batch is a tuple `(inputs, targets)` where:
-    /// - `inputs` is an `Array2<f64>` of shape `(batch_size, input_dim)`
-    /// - `targets` is an `Array2<f64>` of shape `(batch_size, num_classes)`
+    /// - `inputs` is an `Array2<f32>` of shape `(batch_size, input_dim)`
+    /// - `targets` is an `Array2<f32>` of shape `(batch_size, num_classes)`
     ///
     /// The last batch may be smaller than `batch_size` if the dataset size is
     /// not a multiple of the batch size.
@@ -55,7 +55,7 @@ impl<D: Dataset> DataLoader<D> {
     ///     // ...
     /// }
     /// ```
-    pub fn batches(&self) -> impl Iterator<Item = (Array2<f64>, Array2<f64>)> + '_ {
+    pub fn batches(&self) -> impl Iterator<Item = (Array2<f32>, Array2<f32>)> + '_ {
         BatchIter::new(self)
     }
 }
@@ -97,7 +97,7 @@ impl<'a, D: Dataset> BatchIter<'a, D> {
 }
 
 impl<'a, D: Dataset> Iterator for BatchIter<'a, D> {
-    type Item = (Array2<f64>, Array2<f64>);
+    type Item = (Array2<f32>, Array2<f32>);
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.pos >= self.indices.len() {

@@ -17,9 +17,9 @@ impl CsvDataset {
         fn parse_line(line: &str) -> Result<Sample, CsvLoadError> {
             let (expected_part, features_part) =
                 line.split_once(',').ok_or(CsvLoadError::FailedSplit)?;
-            let inputs: Array1<f64> = features_part
+            let inputs: Array1<f32> = features_part
                 .split(',')
-                .map(|w| w.parse::<u8>().map(|w| (w as f64 - 127.5) / 127.5))
+                .map(|w| w.parse::<u8>().map(|w| (w as f32 - 127.5) / 127.5))
                 .collect::<Result<_, _>>()
                 .map_err(|_| CsvLoadError::FeatureParseError)?;
             let expected_value: usize = expected_part
