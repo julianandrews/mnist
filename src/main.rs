@@ -15,7 +15,9 @@ fn main() -> Result<(), anyhow::Error> {
             init_method,
         } => {
             // TODO: alternate filetype loading
-            let loader = csv_loader_from_file(&sample_file, batch_size)?;
+            // TODO: shuffle bool from command line flags
+            // TODO: RNG seed from command line flags
+            let loader = csv_loader_from_file(&sample_file, batch_size, true, None)?;
 
             // Add the input layer and the output layer to the hidden layers
             let layers: Vec<usize> = std::iter::once(loader.input_size())
@@ -24,6 +26,7 @@ fn main() -> Result<(), anyhow::Error> {
                 .collect();
 
             let mut net = NeuralNet::new(&layers, activation.into(), init_method.into());
+
             // TODO: verbose flag?
             // let optimizer = todo!();
             // optimizer.train(&mut net, data_loader);
